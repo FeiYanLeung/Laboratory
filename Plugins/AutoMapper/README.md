@@ -1,0 +1,1 @@
+AutoMapper/(截止2018/4/10)官方版本在对某一个Property使用.Ignore()后，再次对Property使用MapForm有效但ResolveUsing无效。是由于源码中在使用MapForm时将Property标记为非Ignore，而在ResolveUsing时未标记。

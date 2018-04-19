@@ -1,0 +1,1 @@
+﻿SQLite不支持EF CodeFirst，需要使用DB First方式编程

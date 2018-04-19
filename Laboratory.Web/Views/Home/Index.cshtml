@@ -1,0 +1,86 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>ASP.NET</h1>
+    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Getting started</h2>
+        <p>
+            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+            enables a clean separation of concerns and gives you full control over markup
+            for enjoyable, agile development.
+        </p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Get more libraries</h2>
+        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Web Hosting</h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    </div>
+</div>
+
+
+@Html.Raw(ViewBag.Output);
+@Html.Raw(HttpUtility.HtmlEncode("&#60;"))
+
+<script src="~/Scripts/calendar.js"></script>
+
+<script type="text/template" id="dialogTpl">
+    <div class="mydialog">
+        <span class="close">×</span>
+        <div class="mydialog-cont">
+            <div class="cont"><% this.content %></div>
+        </div>
+        <div class="footer">
+            <% if(this.cancel){ %>
+            <span class="btn btn-ok"><% this.ok_txt %></span>
+            <span class="btn btn-cancel"><% this.cancel_txt %></span>
+            <% } else{ %>
+            <span class="btn btn-ok" style="width: 100%"><% this.ok_txt %></span>
+            <% } %>
+        </div>
+    </div>
+</script>
+<script>
+    var calendar = new Calendar({
+        tmpId: 'dialogTpl',
+        cancel: true,
+        content: 'hello world!'
+    });
+    calendar.show();
+
+    calendar.on('show', function () {
+        alert('show');
+    });
+</script>
+
+
+<button onclick="setCookie()" type="button">
+    setCookie
+</button>
+<button onclick="clearCookie()" type="button">
+    clearCookie
+</button>
+<script>
+    function setCookie() {
+        $.post('setCookie', function (res) {
+            console.log(res);
+        });
+    }
+    function clearCookie() {
+        $.post('Logout', function (res) {
+            console.log(res);
+        });
+    }
+</script>

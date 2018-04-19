@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+@using (var form = Html.BeginForm("Login", "Home", FormMethod.Post))
+{
+    <p>
+        @ViewBag.AuthMsg
+    </p>
+    <table>
+        <tr>
+            <td>用户名</td>
+            <td><input type="text" name="name" /></td>
+        </tr>
+        <tr>
+            <td>密码</td>
+            <td><input type="password" name="password" /></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+                <button type="submit">提交</button>
+            </td>
+        </tr>
+    </table>
+}
