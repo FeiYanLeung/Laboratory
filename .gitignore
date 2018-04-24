@@ -1,1 +1,14 @@
 /packages
+bin
+obj
+/Laboratory/DbTest/Data
+/Laboratory.Core/Constants.cs
+/.vs/Laboratory/v15/.suo
+/.vs/Laboratory/v15/Server/sqlite3/db.lock
+/.vs/Laboratory/v15/Server/sqlite3/storage.ide
+/.vs/Laboratory/v15/Server/sqlite3/storage.ide-shm
+/.vs/Laboratory/v15/Server/sqlite3/storage.ide-wal
+/.vs/ProjectSettings.json
+/.vs/VSWorkspaceState.json
+/.vs/config/applicationhost.config
+/.vs/slnx.sqlite

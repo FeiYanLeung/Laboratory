@@ -7,6 +7,7 @@ namespace Laboratory.Core.Enums
     /// 身份验证失败时的处理方式
     /// </summary>
     [Serializable]
+    [Flags]
     public enum EnumOutputFormat
     {
         /// <summary>

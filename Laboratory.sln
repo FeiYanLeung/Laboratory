@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TopSdk", "G:\SourceCode\taobao-sdk-net\taobao-sdk-net-auto_1479188381469-20170605-source\TopSdk.csproj", "{9C11CAE5-5188-4E71-825B-68FC3135728A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laboratory.Core", "Laboratory.Core\Laboratory.Core.csproj", "{C15E99ED-34C1-4EDD-A868-98A7BBDBCD5B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laboratory", "Laboratory\Laboratory.csproj", "{51AACDFA-7E03-45C9-AE32-F8EB5431C246}"
@@ -25,10 +23,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9C11CAE5-5188-4E71-825B-68FC3135728A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9C11CAE5-5188-4E71-825B-68FC3135728A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9C11CAE5-5188-4E71-825B-68FC3135728A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9C11CAE5-5188-4E71-825B-68FC3135728A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C15E99ED-34C1-4EDD-A868-98A7BBDBCD5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C15E99ED-34C1-4EDD-A868-98A7BBDBCD5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C15E99ED-34C1-4EDD-A868-98A7BBDBCD5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -54,7 +48,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{9C11CAE5-5188-4E71-825B-68FC3135728A} = {531CE38E-9069-41CE-A479-524237E356D6}
 		{C15E99ED-34C1-4EDD-A868-98A7BBDBCD5B} = {531CE38E-9069-41CE-A479-524237E356D6}
 		{51AACDFA-7E03-45C9-AE32-F8EB5431C246} = {531CE38E-9069-41CE-A479-524237E356D6}
 		{690FF792-31F1-4028-85DC-1AB1BB829F2F} = {531CE38E-9069-41CE-A479-524237E356D6}
