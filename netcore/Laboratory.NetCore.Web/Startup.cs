@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace Laboratory.NetCore.Web
 {
@@ -34,6 +35,15 @@ namespace Laboratory.NetCore.Web
             }
 
             app.UseStaticFiles();
+
+            var webSocketOptions = new WebSocketOptions()
+            {
+                KeepAliveInterval = TimeSpan.FromSeconds(120),
+                ReceiveBufferSize = 4 * 1024
+            };
+
+            app.UseWebSockets(webSocketOptions);
+            app.UseWebSocketRequestHandlerMiddleware();
 
             app.UseMvc(routes =>
             {
