@@ -45,7 +45,7 @@ namespace Laboratory.ArithmeticTest
 
             lst.Clear();
 
-            for (int i = 0; i < 100; )
+            for (int i = 0; i < 100;)
             {
                 var rndValue = rnd.Next(0, 100);
                 if (!lst.Contains(rndValue))
@@ -77,32 +77,32 @@ namespace Laboratory.ArithmeticTest
         /// </remarks>
         /// </summary>
         /// <param name="origin_arr"></param>
-        public void bubbleSort(int[] origin_arr)
+        public void bubbleSort(int[] bubble_nums)
         {
-            Console.WriteLine("冒泡排序：{0}", string.Join(" ", origin_arr));
+            Console.WriteLine("冒泡排序：{0}", string.Join(" ", bubble_nums));
 
-            int t;
+            int temp;
             bool swapped;
 
-            for (int i = 0, len = origin_arr.Length; i < len - 1; i++)
+            for (int i = 0, len = bubble_nums.Length; i < len - 1; i++)
             {
                 swapped = true;
                 for (int j = 0; j < len - i - 1; j++)
                 {
-                    if (origin_arr[j + 1] < origin_arr[j])
+                    if (bubble_nums[j + 1] < bubble_nums[j])
                     {
-                        t = origin_arr[j];
-                        origin_arr[j] = origin_arr[j + 1];
-                        origin_arr[j + 1] = t;
+                        temp = bubble_nums[j];
+                        bubble_nums[j] = bubble_nums[j + 1];
+                        bubble_nums[j + 1] = temp;
                         swapped = false;
                     }
                 }
-                Console.WriteLine("执行第{0}次：{1}", i + 1, string.Join(" ", origin_arr));
+                Console.WriteLine("执行第{0}次：{1}", i + 1, string.Join(" ", bubble_nums));
 
                 if (swapped) break;
             }
-            Console.WriteLine("排序后的结果：{0}", string.Join(" ", origin_arr));
 
+            Console.WriteLine("排序后的结果：{0}", string.Join(" ", bubble_nums));
         }
 
         /// <summary>
@@ -163,7 +163,6 @@ namespace Laboratory.ArithmeticTest
                 int mid = low + ((height - low) / 2);//此处的mid的计算一定要放在while循环内部，否则mid无法正确更新;并且此处用移位代替除以2可以提高效率，而且可以防止溢出。
                 if (nums[mid] > target)//数组中间的位置得数大于要查找的数，那么我们就在中间数的左区间找
                 {
-
                     //循环条件一定要注意
                     height = mid - 1;
                 }
@@ -186,7 +185,7 @@ namespace Laboratory.ArithmeticTest
         /// </summary>
         public void Run()
         {
-            #region 二分法
+            #region 二分法，查找对象必须升序排列
             {
                 int[] nums = new int[] { 1, 3, 5, 9, 10 };
                 Console.WriteLine("输入查找的数：[{0}]", string.Join(",", nums));
@@ -197,6 +196,7 @@ namespace Laboratory.ArithmeticTest
                 int.TryParse(input, out target);
 
                 int ret1 = binary_search(nums, target);
+                
 
                 Console.WriteLine("二分法：{0}", ret1);
                 return;

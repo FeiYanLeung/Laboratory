@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using Laboratory.Core;
+using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace Laboratory.DbTest
@@ -21,7 +22,7 @@ namespace Laboratory.DbTest
     public sealed class SQLContext : DbEntities
     {
         public SQLContext()
-            : base("name=SQL2016AE")
+            : base(AppConfig.MSSQL_CONNECTION_STRING)  //MSSQL2016_CONNECTION_STRING
         {
 
         }

@@ -11,7 +11,7 @@ namespace Laboratory.Core
     {
         private readonly DbConnection connection;
 
-        public EFExtend() : this(AppConfig.SQLSERVER_CONNECTION_STRING) { }
+        public EFExtend() : this(AppConfig.MSSQL_CONNECTION_STRING) { }
 
         public EFExtend(string connectionString)
         {

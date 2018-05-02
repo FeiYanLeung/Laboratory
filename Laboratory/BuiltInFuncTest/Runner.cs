@@ -112,15 +112,14 @@ namespace Laboratory.BuiltInFuncTest
 
             #endregion
 
-
             int n1 = 73 << 3;    // = 7 * Math.Pow(2, 3) = 7*(2*2*2) =584(十进制)
             Console.WriteLine($"n1:{n1}");
 
             //byte：1byte = 8bit
             //bit：(从右往左)前7位表示数值，第8位是符号位（0为正，1为负）,所以最大正数为0 1111111=127,最大负数为1 1111111=-127，所以取值范围为-127~127共256个数（存在-0和+0）。
-            
+
             // step1: 将584转换为二进制=1001001000
-            // step2: 将二进制转换为十进制=Math.Pow(2, 3)+Math.Pow(2, 6)+Math.Pow(2, 9)
+            // step2: 将二进制转换为十进制=Math.Pow(2, 3)+Math.Pow(2, 6)+Math.Pow(2, 9)，即从右往左取数字为1的下标，得到下标3，6，9，分别取其对应下标的2的n次方。
             // step3: 由于Math.Pow(2, 9)等于512大于255,舍弃得出=Math.Pow(2, 3)+Math.Pow(2, 6) = 72
             var n2 = (byte)n1;
             Console.WriteLine($"n2:{n2}, {n1 & 255}");
@@ -131,7 +130,7 @@ namespace Laboratory.BuiltInFuncTest
         public void Run()
         {
             var bnum = intToByte(10);
-            Console.WriteLine(bnum);
+            Console.WriteLine(string.Join("", bnum));
 
             Console.WriteLine(byteToInt(bnum));
 
@@ -215,17 +214,16 @@ namespace Laboratory.BuiltInFuncTest
         /// </summary>
         /// <param name="number">10进制数字</param>
         /// <returns></returns>
-        public string intToByte(int number)
+        public byte[] intToByte(int number)
         {
-            var result = new List<int>();
+            var stack = new Stack<byte>();
             do
             {
-                result.Add(number % 2);
+                stack.Push((byte)((number % 2) & 255));
                 number = number / 2;
             } while (number >= 1);
 
-            result.Reverse();
-            return string.Join("", result);
+            return stack.ToArray();
         }
 
         /// <summary>
@@ -233,20 +231,21 @@ namespace Laboratory.BuiltInFuncTest
         /// </summary>
         /// <param name="number"></param>
         /// <returns></returns>
-        public double byteToInt(string number)
+        public double byteToInt(byte[] bytes_digit)
         {
-            double outnum = 0;
-            var cnumber = number.Reverse()
-                .ToArray();
-
-            for (int i = 0, j = cnumber.Length; i < j; i++)
+            Stack<byte> stack = new Stack<byte>(bytes_digit.Length);
+            foreach (byte digit in bytes_digit)
             {
-                var snum = Convert.ToInt32(cnumber[i].ToString());
-                if (snum == 0) continue;
-                outnum += snum * (Math.Pow(2, i));
+                stack.Push(digit);
             }
 
-            return outnum;
+            double dest_digit = 0d;
+            for (int i = 0; i < stack.Count; i++)
+            {
+                if (0.Equals(stack.ElementAt(i))) continue;
+                dest_digit += Math.Pow(2, i);
+            }
+            return dest_digit;
         }
 
         /// <summary>

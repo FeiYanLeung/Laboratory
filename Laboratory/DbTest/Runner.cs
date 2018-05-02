@@ -6,8 +6,11 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Configuration;
 using System.Data;
+using System.Data.Entity;
+using System.Data.Entity.Core.Mapping;
+using System.Data.Entity.Core.Metadata.Edm;
+using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
@@ -28,15 +31,14 @@ namespace Laboratory.DbTest
             }
         }
 
-        private readonly string connectionString;
-        public Runner()
-        {
-            this.connectionString = ConfigurationManager.ConnectionStrings["SQL2016AE"].ConnectionString;
-        }
-
         public void Run()
         {
-            this.SQLiteTest();
+            using (var db = new SQLContext())
+            {
+                Console.WriteLine(GetColumnName(typeof(Album), nameof(Album.GenreId), db));
+            }
+
+            //this.SQLiteTest();
             return;
             EFExtend.Instance.Merge<Artist>();
 
@@ -56,7 +58,7 @@ namespace Laboratory.DbTest
             this.MixedDbTest();
             return;
 
-            using (var connection = new SqlConnection(this.connectionString))
+            using (var connection = new SqlConnection(AppConfig.MSSQL2016_CONNECTION_STRING))
             {
                 if (connection.State == ConnectionState.Closed)
                 {
@@ -85,7 +87,7 @@ namespace Laboratory.DbTest
 
             Console.WriteLine("ADO.NET Reader Executing...");
 
-            using (var connection = new SqlConnection(this.connectionString))
+            using (var connection = new SqlConnection(AppConfig.MSSQL2016_CONNECTION_STRING))
             {
                 if (connection.State == ConnectionState.Closed)
                 {
@@ -133,7 +135,7 @@ namespace Laboratory.DbTest
 
             Console.WriteLine("ADO.NET Executing...");
 
-            using (var connection = new SqlConnection(this.connectionString))
+            using (var connection = new SqlConnection(AppConfig.MSSQL2016_CONNECTION_STRING))
             {
                 var transName = "trans_sql_ae";
 
@@ -213,7 +215,7 @@ namespace Laboratory.DbTest
 
                 #region SQLServer
 
-                using (var connection = new SqlConnection(AppConfig.SQLSERVER_CONNECTION_STRING))
+                using (var connection = new SqlConnection(AppConfig.MSSQL_CONNECTION_STRING))
                 {
                     if (connection.State == ConnectionState.Closed)
                     {
@@ -785,6 +787,54 @@ namespace Laboratory.DbTest
             {
                 Logger.Instance.Log("error：" + e.Message);
             }
+        }
+
+
+        public static string GetColumnName(Type type, string propertyName, DbContext context)
+        {
+            var metadata = ((IObjectContextAdapter)context).ObjectContext.MetadataWorkspace;
+
+            // Get the part of the model that contains info about the actual CLR types
+            var objectItemCollection = ((ObjectItemCollection)metadata.GetItemCollection(DataSpace.OSpace));
+
+            // Get the entity type from the model that maps to the CLR type
+            var entityType = metadata
+                    .GetItems<EntityType>(DataSpace.OSpace)
+                          .Single(e => objectItemCollection.GetClrType(e) == type);
+
+            // Get the entity set that uses this entity type
+            var entitySet = metadata
+                .GetItems<EntityContainer>(DataSpace.CSpace)
+                      .Single()
+                      .EntitySets
+                      .Single(s => s.ElementType.Name == entityType.Name);
+
+            // Find the mapping between conceptual and storage model for this entity set
+            var mapping = metadata.GetItems<EntityContainerMapping>(DataSpace.CSSpace)
+                          .Single()
+                          .EntitySetMappings
+                          .Single(s => s.EntitySet == entitySet);
+
+            // Find the storage entity set (table) that the entity is mapped
+            var tableEntitySet = mapping
+                .EntityTypeMappings.Single()
+                .Fragments.Single()
+                .StoreEntitySet;
+
+            // Return the table name from the storage entity set
+            var tableName = tableEntitySet.MetadataProperties["Table"].Value ?? tableEntitySet.Name;
+
+            // Find the storage property (column) that the property is mapped
+            var columnName = mapping
+                .EntityTypeMappings.Single()
+                .Fragments.Single()
+                .PropertyMappings
+                .OfType<ScalarPropertyMapping>()
+                      .Single(m => m.Property.Name == propertyName)
+                .Column
+                .Name;
+
+            return tableName + "." + columnName;
         }
 
         #region Entities

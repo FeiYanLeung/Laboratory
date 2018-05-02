@@ -11,6 +11,7 @@ namespace Laboratory.Web.Controllers
         private SQLiteContext db = new SQLiteContext();
 
         // GET: Default
+        [OutputCache(Duration = 600, VaryByParam = "code")]
         public ActionResult Index()
         {
             //var albums = Mapper.Map<IQueryable<Album>, IEnumerable<AlbumDto>>(db.Albums);
