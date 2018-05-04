@@ -1,9 +1,13 @@
 ﻿using Laboratory.Core;
 using Laboratory.XmlConfigTest.Entities;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml;
+using System.Xml.Linq;
 using System.Xml.Serialization;
+using System.Xml.XPath;
 
 namespace Laboratory.XmlConfigTest
 {
@@ -173,6 +177,8 @@ namespace Laboratory.XmlConfigTest
 
         public void Run()
         {
+            XPathTest();
+            return;
 
             this.initAppConfig();
 
@@ -237,6 +243,53 @@ namespace Laboratory.XmlConfigTest
             document.AppendChild(element);
 
             document.Save("doc.xml");
+        }
+
+
+        public void XPathTest()
+        {
+            #region XPath构建XML
+
+            var xdoc = new XDocument(
+                new XElement("app",
+                    new XElement("uniqueidentifier", Guid.NewGuid().ToString("n")),
+                    new XElement("debug", false),
+                    new XElement("environment",
+                        new XElement("platform", "x86|x64|ARM"),
+                        new XElement("hardware",
+                            new XAttribute("ram", "8GB"),
+                            new XAttribute("rom", "64GB"),
+                            new XText("minimum requirements."))
+                    ))
+            );
+
+            xdoc.Save(Console.Out);
+            Console.WriteLine();
+
+            #endregion
+
+            #region XPath方式
+
+            Console.WriteLine("============= XPath.edit ==============");
+
+            xdoc.XPathSelectElement("//environment/hardware[@ram=\"8GB\"]")
+                .SetAttributeValue("ram", "2GB");
+
+            xdoc.Save(Console.Out);
+            Console.WriteLine();
+
+            #endregion
+
+            #region Linq 方式
+
+            xdoc.Descendants("hardware")
+                .FirstOrDefault(item => item.HasAttributes && item.Attribute("ram").Value == "2GB")
+                .SetAttributeValue("ram", "6GB");
+
+            xdoc.Save(Console.Out);
+            Console.WriteLine();
+
+            #endregion
         }
     }
 }

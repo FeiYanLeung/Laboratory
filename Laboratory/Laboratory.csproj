@@ -77,6 +77,9 @@
     <Reference Include="KCached">
       <HintPath>..\Plugins\Beetle.Redis.0.6.6.5\KCached.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="MongoDB.Bson, Version=2.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MongoDB.Bson.2.5.0\lib\net45\MongoDB.Bson.dll</HintPath>
       <Private>True</Private>
@@ -212,6 +215,8 @@
     <Compile Include="LinqTest\Entities\SampleData.cs" />
     <Compile Include="LinqTest\Runner.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="LogTest\log4net\Log4NetTest.cs" />
+    <Compile Include="LogTest\Runner.cs" />
     <Compile Include="MongoDbTest\Models\MongoDocument.cs" />
     <Compile Include="MongoDbTest\Runner.cs" />
     <Compile Include="NetworkTest\Email.cs" />
@@ -526,6 +531,10 @@
     <None Include="DbTest\Data\12575\中人请假.json" />
     <None Include="DbTest\Data\12770\test.json" />
     <None Include="DbTest\Data\12770\任务管理.json" />
+    <None Include="LogTest\log4net\log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
