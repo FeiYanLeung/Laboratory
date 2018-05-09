@@ -1,4 +1,8 @@
-﻿using Laboratory.Web.Dto;
+﻿// 标记是否是发布环境
+#define ONLINE
+
+using Laboratory.Web.Dto;
+using System;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -18,20 +22,53 @@ namespace Laboratory.Web
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
 
-        protected void Application_Error()
+        /// <summary>
+        /// 程序4x错误处理
+        /// 4x错误(业务)在NotFoundResult中处理
+        /// 5x错误在CustomErrorAttribute中处理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void Application_Error(object sender, EventArgs e)
         {
-            var ex = Server.GetLastError();
-            if (ex is HttpException)
+            var exception = Server.GetLastError();
+            if (exception != null)
             {
-                var httpCode = ((HttpException)ex).GetHttpCode();
-
-                if (httpCode == 400 || httpCode == 404)
+                var httpException = exception as HttpException;
+                if (httpException != null)
                 {
-                    Server.ClearError();
-                    Response.Clear();
+                    int httpCode = httpException.GetHttpCode();
 
-                    Response.StatusCode = 404;
-                    Response.Redirect("/NotFound.html");
+                    // 待处理的错误状态码
+                    var errorCodes = new int[] { 400, 404 };
+
+                    if (Array.IndexOf(errorCodes, httpCode) > -1)
+                    {
+                        // 清除异常。
+                        Server.ClearError();
+
+                        // 尝试禁用IIS自定义错误
+                        Response.TrySkipIisCustomErrors = true;
+
+#if ONLINE
+                        Response.Redirect("~/NotFound.html");
+                        return;
+#endif
+
+                        var requestContext = ((MvcHandler)HttpContext.Current.CurrentHandler).RequestContext;
+                        requestContext.RouteData.Values["controller"] = "Error";
+                        requestContext.RouteData.Values["action"] = "NotFound";
+                        requestContext.RouteData.Values["error"] = httpException;
+#if DEBUG
+                        var controllerFactory = ControllerBuilder.Current.GetControllerFactory();
+                        var errorController = controllerFactory.CreateController(requestContext, "Error");
+#else
+                        var errorController  = new ErrorController();
+#endif
+
+                        // 调用并传递routeData到目标Controller
+                        errorController.Execute(requestContext);
+                    }
                 }
             }
         }

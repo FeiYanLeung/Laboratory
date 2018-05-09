@@ -31,7 +31,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{18BC72C9-097
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D9C56FCB-29AE-4250-900C-9AF2FF17F98C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laboratory.NetCore.Tests", "netcore\Laboratory.NetCore.Tests\Laboratory.NetCore.Tests.csproj", "{A21D9326-8250-496F-8556-06832CA1C4AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Laboratory.NetCore.Tests", "netcore\Laboratory.NetCore.Tests\Laboratory.NetCore.Tests.csproj", "{A21D9326-8250-496F-8556-06832CA1C4AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laboratory.Migrator", "Laboratory.Migrator\Laboratory.Migrator.csproj", "{A4EA72F6-BAC5-4867-83C1-8B931769367D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{A21D9326-8250-496F-8556-06832CA1C4AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A21D9326-8250-496F-8556-06832CA1C4AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A21D9326-8250-496F-8556-06832CA1C4AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4EA72F6-BAC5-4867-83C1-8B931769367D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4EA72F6-BAC5-4867-83C1-8B931769367D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4EA72F6-BAC5-4867-83C1-8B931769367D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4EA72F6-BAC5-4867-83C1-8B931769367D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,6 +87,7 @@ Global
 		{18BC72C9-0971-459C-B150-F1D4458B65E3} = {7575577E-6858-4231-AA25-3D3508157360}
 		{D9C56FCB-29AE-4250-900C-9AF2FF17F98C} = {531CE38E-9069-41CE-A479-524237E356D6}
 		{A21D9326-8250-496F-8556-06832CA1C4AB} = {CBE8184F-29DF-457C-8C89-4593112F183B}
+		{A4EA72F6-BAC5-4867-83C1-8B931769367D} = {D9C56FCB-29AE-4250-900C-9AF2FF17F98C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5F1F9364-4EF8-4D40-AA95-0C80A8DD7DEE}

@@ -59,10 +59,8 @@ namespace Laboratory.Web.Attributes
                 var actionDescriptor = filterContext.ActionDescriptor as IMethodInfoActionDescriptor;
                 var actionReturnType = actionDescriptor.MethodInfo.ReturnType;
 
-                if (object.ReferenceEquals(typeof(JsonResult), actionReturnType))
-                {
-                    this.Format = EnumOutputFormat.JSON;
-                }
+                if (object.ReferenceEquals(typeof(JsonResult), actionReturnType)) this.Format = EnumOutputFormat.JSON;
+                else this.Format = EnumOutputFormat.Redirect;
 
                 #endregion
             }
