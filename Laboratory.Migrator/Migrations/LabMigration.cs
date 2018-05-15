@@ -12,6 +12,12 @@ namespace Laboratory.Migrator.Migrations
         /// </summary>
         public override void Up()
         {
+            CreateTable("dbo.Products", builder => new
+            {
+                Id = builder.Int(identity: true, name: "Id"),
+                Name = builder.String(nullable: false, maxLength: 20)
+            });
+
             AlterColumn("dbo.Products", "Name", c => c.String(maxLength: 120));
         }
 

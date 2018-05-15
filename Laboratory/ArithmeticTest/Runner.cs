@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Laboratory.ArithmeticTest.BinaryTree;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -185,6 +186,10 @@ namespace Laboratory.ArithmeticTest
         /// </summary>
         public void Run()
         {
+            new BTIteration()
+                .Run();
+
+            return;
             #region 二分法，查找对象必须升序排列
             {
                 int[] nums = new int[] { 1, 3, 5, 9, 10 };

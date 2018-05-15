@@ -160,6 +160,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArithmeticTest\BinaryTree\BTIteration.cs" />
+    <Compile Include="ArithmeticTest\BinaryTree\BTree.cs" />
     <Compile Include="ArithmeticTest\Runner.cs" />
     <Compile Include="Autofac.Ioc\Impl\BlackCat.cs" />
     <Compile Include="Autofac.Ioc\Impl\WhiteCat.cs" />
