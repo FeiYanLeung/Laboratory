@@ -1,4 +1,7 @@
-﻿using Newtonsoft.Json.Serialization;
+﻿using JsonPatch;
+using JsonPatch.Formatting;
+using JsonPatch.Paths.Resolvers;
+using Newtonsoft.Json.Serialization;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -15,6 +18,12 @@ namespace Laboratory.WebApi
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            //Json Patch Support
+            GlobalConfiguration.Configuration.Formatters.Add(new JsonPatchFormatter(new JsonPatchSettings
+            {
+                PathResolver = new FlexiblePathResolver()
+            }));
 
             //解决字段输出时默认输出“字段+k_BackingField”的问题
             GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new DefaultContractResolver
