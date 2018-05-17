@@ -8,6 +8,9 @@ namespace Laboratory.WebApi.Controllers
     {
         public ActionResult Index()
         {
+
+            return Redirect("/swagger/ui/index");
+
             var cs = WebConfigurationManager.GetSection("system.web/compilation") as CompilationSection;
             ViewBag.Title = String.Format("{0} - Home Page", cs.Debug ? "Debug" : "Release");
 
