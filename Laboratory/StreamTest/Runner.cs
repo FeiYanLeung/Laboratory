@@ -16,7 +16,12 @@ namespace Laboratory.StreamTest
         {
             var buff = Encoding.UTF8.GetBytes("二进制");
 
-            using (var stream = new FileStream("./StreamTest/Writter.bs", FileMode.Create))
+            var directory = new DirectoryInfo("./Stream");
+            if (!directory.Exists) directory.Create();
+
+            var path = Path.Combine(directory.FullName, "binary.bs");
+
+            using (var stream = new FileStream(path, FileMode.Create))
             {
                 using (var bw = new BinaryWriter(stream))
                 {
@@ -24,7 +29,7 @@ namespace Laboratory.StreamTest
                 }
             }
 
-            using (var reader = new FileStream("./StreamTest/Writter.bs", FileMode.Open))
+            using (var reader = new FileStream(path, FileMode.Open))
             {
                 using (var bw = new BinaryReader(reader, Encoding.UTF8))
                 {

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -33,6 +32,34 @@ namespace Laboratory.ThreadTest
 
         public void Run()
         {
+            var backgroundThread = new Thread(new ThreadStart(() =>
+              {
+                  for (int i = 0; i < 10; i++)
+                  {
+                      Console.WriteLine($"后台线程计数：{i}");
+                      Thread.Sleep(1000);
+                  }
+              }));
+
+            backgroundThread.IsBackground = true;
+            backgroundThread.Start();
+
+            var forceThread = new Thread(new ThreadStart(() =>
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    Console.WriteLine($"主线程计数：{i}");
+                    Thread.Sleep(800);
+                }
+            }));
+            forceThread.Start();
+
+
+
+
+            return;
+
+
             runMTaskPool();
             return;
             new Action(async () =>
@@ -160,15 +187,15 @@ namespace Laboratory.ThreadTest
             {
                 var s = rnd.Next(10);
                 var j = i;
-                var 测试任务 = new Action(() =>
+                var testTask = new Action(() =>
                 {
                     Console.WriteLine(string.Format("第{0}个任务（用时{1}秒）已经开始", j, s));
                     Thread.Sleep(s * 1000);
                     Console.WriteLine(string.Format("第{0}个任务（用时{1}秒）已经结束", j, s));
                 });
-                lst.Tasks.Add(测试任务);
+                lst.Tasks.Add(testTask);
             }
-            lst.Completed += () => Console.WriteLine("____________________没有更多的任务了！");
+            lst.Completed += () => Console.WriteLine("没有更多的任务了！");
             lst.Start();
         }
     }

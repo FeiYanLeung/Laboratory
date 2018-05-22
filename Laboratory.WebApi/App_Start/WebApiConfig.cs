@@ -18,7 +18,7 @@ namespace Laboratory.WebApi
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
-                name: "deep_api",
+                name: "api",
                 routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { version = "api", id = RouteParameter.Optional }
             );

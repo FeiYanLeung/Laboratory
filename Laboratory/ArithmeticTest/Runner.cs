@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Laboratory.ArithmeticTest.BinaryTree;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Laboratory.ArithmeticTest
@@ -180,11 +183,73 @@ namespace Laboratory.ArithmeticTest
             return -1;
         }
 
+
+        private int[] totalSum(int[] nums, int target)
+        {
+            var temp = new Hashtable();
+            var values = new int[2] { -1, -1 };
+            for (int i = 0, j = nums.Length; i < j; i++)
+            {
+                var num = nums[i];
+
+                var _pnum = temp[target - num];
+                if (_pnum != null)
+                {
+                    values[0] = (int)temp[target - num];
+                    values[1] = i;
+                    break;
+                }
+                if (!temp.ContainsKey(num)) temp.Add(num, i);
+            }
+
+            return values;
+        }
+
+        private int[] twoSum(int[] nums, int target)
+        {
+            var temp = new List<int>();
+            var values = new int[2] { -1, -1 };
+            for (int i = 0, j = nums.Length; i < j; i++)
+            {
+                if (temp.Contains(target - nums[i]))
+                {
+                    values[0] = temp.IndexOf(target - nums[i]);
+                    values[1] = i;
+                    break;
+                }
+                temp.Add(nums[i]);
+            }
+
+            return values;
+        }
+
         /// <summary>
         /// 
         /// </summary>
         public void Run()
         {
+            var xarray = new List<int>() { -3, 4, 3, 90 };
+
+
+            int vx = 0;
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            Console.WriteLine("hashtable:");
+            var result = this.totalSum(xarray.ToArray(), vx);
+            Console.WriteLine("{0},{1} {2}", result[0], result[1], sw.ElapsedMilliseconds);
+
+            sw.Restart();
+            Console.WriteLine("list:");
+            var resultx = this.totalSum(xarray.ToArray(), vx);
+            Console.WriteLine("{0},{1} {2}", resultx[0], resultx[1], sw.ElapsedMilliseconds);
+
+
+
+            return;
+            new BTIteration()
+                .Run();
+
+            return;
             #region 二分法，查找对象必须升序排列
             {
                 int[] nums = new int[] { 1, 3, 5, 9, 10 };
@@ -196,7 +261,7 @@ namespace Laboratory.ArithmeticTest
                 int.TryParse(input, out target);
 
                 int ret1 = binary_search(nums, target);
-                
+
 
                 Console.WriteLine("二分法：{0}", ret1);
                 return;

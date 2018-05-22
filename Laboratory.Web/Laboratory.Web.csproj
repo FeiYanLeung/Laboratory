@@ -139,10 +139,15 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Attributes\CustomErrorAttribute.cs" />
+    <Compile Include="Attributes\InternationalizationAttribute.cs" />
+    <Compile Include="Attributes\LocalizedDisplayNameAttribute.cs" />
+    <Compile Include="Attributes\MaxLengthAttribute.cs" />
+    <Compile Include="Attributes\MinLengthAttribute.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InternationalizationController.cs" />
     <Compile Include="Controllers\WeChatController.cs" />
     <Compile Include="DTOs\AlbumDto.cs" />
     <Compile Include="DTOs\Core\MapperExtension.cs" />
@@ -154,6 +159,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\WeChatOfficialHelper.cs" />
+    <Compile Include="Models\Parameters\InternationalizationParameter.cs" />
     <Compile Include="Models\SQLiteContext.cs" />
     <Compile Include="Models\Entities\Album.cs" />
     <Compile Include="Models\Entities\Artist.cs" />
@@ -204,7 +210,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -227,6 +235,7 @@
     <Content Include="Views\Default\Index.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Internationalization\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -241,6 +250,10 @@
     <ProjectReference Include="..\Laboratory.Core\Laboratory.Core.csproj">
       <Project>{c15e99ed-34c1-4edd-a868-98a7bbdbcd5b}</Project>
       <Name>Laboratory.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Laboratory.Resources\Laboratory.Resources.csproj">
+      <Project>{39f7c733-9582-4906-9b31-ed3d7c8a9e90}</Project>
+      <Name>Laboratory.Resources</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
