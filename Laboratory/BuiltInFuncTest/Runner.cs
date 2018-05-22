@@ -127,31 +127,9 @@ namespace Laboratory.BuiltInFuncTest
             return;
         }
 
-        /// <summary>
-        /// 格式化TimeSpan
-        /// </summary>
-        /// <param name="ts"></param>
-        /// <param name="defValue">当时间间隔小于1分钟时显示的内容</param>
-        /// <returns></returns>
-        private string fmtTs(TimeSpan ts, string defValue = "0")
-        {
-            if (ts.TotalMinutes > 0)
-            {
-                var builder = new StringBuilder();
-                if (ts.TotalDays > 0 && ts.Days > 0) builder.Append($"{ts.Days}天");
-                if (ts.TotalHours > 0 && ts.Hours > 0) builder.Append($"{ts.Hours}小时");
-                if (ts.TotalMinutes > 0 && ts.Minutes > 0) builder.Append($"{ts.Minutes}分钟");
-
-                return builder.ToString();
-            }
-            return defValue;
-        }
 
         public void Run()
         {
-            Console.WriteLine(this.fmtTs(DateTime.Now.AddHours(24.3) - DateTime.Now));
-
-            return;
             var bnum = intToByte(10);
             Console.WriteLine(string.Join("", bnum));
 

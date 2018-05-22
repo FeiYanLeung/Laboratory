@@ -20,6 +20,16 @@ namespace Laboratory.ThreadTest
         {
             lock (Tasks)
             {
+                #region 检测线程使用情况
+
+                //获得最大的线程数量  
+                ThreadPool.GetMaxThreads(out int maxWorkerThreads, out int miot);
+                //获得可用的线程数量  
+                ThreadPool.GetAvailableThreads(out int availableWorkerThreads, out int aiot);
+                Console.WriteLine("当前线程数：{0}", maxWorkerThreads - availableWorkerThreads);
+
+                #endregion
+
                 if (Tasks.Count > 0)
                 {
                     var t = Tasks[Tasks.Count - 1];

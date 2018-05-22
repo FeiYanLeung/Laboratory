@@ -200,7 +200,6 @@
     <script>
         $(function () {
             $("#btn_screen").on("click", function () {
-                console.log($("#exception_container").outerHeight())
                 html2canvas($("#tbl_exception"), {
                     height: $("#tbl_exception").outerHeight() + 300,
                     onrendered: function (canvas) {
@@ -214,12 +213,12 @@
             });
 
             $("#link_expand").on("click", function () {
-                if ($(this).text() == "显示详细信息") {
-                    $(this).text("隐藏详细信息");
-                    $("#tbl_exception").slideDown("fast");
-                } else {
-                    $(this).text("显示详细信息");
+                if ($(this).hasClass('collapse')) {
+                    $(this).text("显示详细信息").removeClass("collapse");
                     $("#tbl_exception").slideUp("fast");
+                } else {
+                    $(this).text("隐藏详细信息").addClass("collapse");
+                    $("#tbl_exception").slideDown("fast");
                 }
             });
         });

@@ -179,6 +179,10 @@
     <Compile Include="AutoMapper\Model\SourceItem.cs" />
     <Compile Include="AutoMapper\Runner.cs" />
     <Compile Include="BuiltInFuncTest\Runner.cs" />
+    <Compile Include="Iterator\Core\Student.cs" />
+    <Compile Include="Iterator\Core\StudentEnumartor.cs" />
+    <Compile Include="Iterator\Core\Students.cs" />
+    <Compile Include="Iterator\Core\Students2.cs" />
     <Compile Include="CropTest\Impl\AvatarModel.cs" />
     <Compile Include="CropTest\Impl\CropModel.cs" />
     <Compile Include="CropTest\Runner.cs" />
@@ -212,6 +216,7 @@
     <Compile Include="ExtensionTest\Runner.cs" />
     <Compile Include="Helpers\TypeExtensions.cs" />
     <Compile Include="IRunner.cs" />
+    <Compile Include="Iterator\Runner.cs" />
     <Compile Include="LazyTest\LazyEntity.cs" />
     <Compile Include="LazyTest\Runner.cs" />
     <Compile Include="LinqTest\Entities\SampleData.cs" />
