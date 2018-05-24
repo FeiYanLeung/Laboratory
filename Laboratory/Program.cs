@@ -70,6 +70,19 @@ namespace Laboratory
                         stopwatch.Stop();
 
                         Console.WriteLine("==========================\r\n运行结束,花费时间：{0}毫秒", stopwatch.ElapsedMilliseconds);
+
+                        #region 堆栈打印
+
+                        /**
+                         
+                        var stackTrace = new StackTrace(true);
+                        var fileName = stackTrace.GetFrame(0).GetFileName();
+                        var lineNo = stackTrace.GetFrame(0).GetFileLineNumber();
+                        var methodName = stackTrace.GetFrame(0).GetMethod().Name;
+                        Console.WriteLine(fileName + "---" + lineNo + "---" + methodName);
+
+                        */
+                        #endregion
                     }
                     else
                     {
