@@ -1,8 +1,14 @@
 ﻿using System;
 using System.Data;
 using System.Data.Common;
+using System.Data.Entity;
+using System.Data.Entity.Core.Mapping;
+using System.Data.Entity.Core.Metadata.Edm;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.ModelConfiguration.Configuration;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 
 namespace Laboratory.Core
@@ -72,23 +78,77 @@ namespace Laboratory.Core
             }
         }
 
-        public void Merge<T>(string tabName = null)
+        public void Merge<T>(DbContext context, T model) where T : class
         {
-            throw new NotImplementedException("wait for u.");
-            tabName = tabName ?? typeof(T).Name;
+            var metadata = ((IObjectContextAdapter)context).ObjectContext.MetadataWorkspace;
 
-            var builder = new StringBuilder($" MERGE INTO {tabName} ");
-            builder.Append(" USING( ");
+            // Get the part of the model that contains info about the actual CLR types
+            var objectItemCollection = ((ObjectItemCollection)metadata.GetItemCollection(DataSpace.OSpace));
 
-            builder.Append($" ) T{tabName} ");
-            builder.Append(" ON T_NAME.[K] = NAME.K ");
-            builder.Append(" WHEN MATCHED THEN UPDATE SET ");
+            // Get the entity type from the model that maps to the CLR type
+            var entityType = metadata
+                    .GetItems<EntityType>(DataSpace.OSpace)
+                          .Single(e => objectItemCollection.GetClrType(e) == typeof(T));
 
-            builder.Append(" WHEN NOT MATCHED THEN INSERT( ");
+            // Get the entity set that uses this entity type
+            var entitySet = metadata
+                .GetItems<EntityContainer>(DataSpace.CSpace)
+                      .Single()
+                      .EntitySets
+                      .Single(s => s.ElementType.Name == entityType.Name);
 
-            builder.Append(" ) VALUES( ");
+            // Find the mapping between conceptual and storage model for this entity set
+            var mapping = metadata.GetItems<EntityContainerMapping>(DataSpace.CSSpace)
+                          .Single()
+                          .EntitySetMappings
+                          .Single(s => s.EntitySet == entitySet);
 
+            // Find the storage entity set (table) that the entity is mapped
+            var tableEntitySet = mapping
+                .EntityTypeMappings.Single()
+                .Fragments.Single()
+                .StoreEntitySet;
+
+            // Return the table name from the storage entity set
+            var tableName = tableEntitySet.MetadataProperties["Table"].Value ?? tableEntitySet.Name;
+
+            // Full properties
+            var columns = mapping
+                .EntityTypeMappings.Single()
+                .Fragments.Single()
+                .PropertyMappings
+                .OfType<ScalarPropertyMapping>()
+                .Select(q => q.Column.Name);
+
+            // Primary keys
+            var keys = ((EntityTypeBase)tableEntitySet.MetadataProperties["ElementType"].Value)
+                .KeyMembers
+                .Select(q => q.Name);
+
+            // Properties(not contains primary keys)
+            var properties = columns.Where(column => !keys.Contains(column));
+
+            var builder = new StringBuilder($" MERGE INTO [{tableName}] TAB ");
+            builder.Append(" USING ( SELECT ");
+            builder.Append(string.Join(", ", columns.Select(column => string.Format("@{0} AS [{0}]", column))));
+            builder.Remove(builder.Length - 1, 1);
+            builder.Append(" ) AS TTAB ON ");
+            builder.Append(string.Join(" AND ", keys.Select(key => string.Format("TAB.[{0}] = TTAB.[{0}]", key))));
+
+            builder.Append(" WHEN MATCHED THEN UPDATE SET");
+            builder.Append(string.Join(", ", properties.Select(property => string.Format("TAB.[{0}] = TTAB.[{0}]", property))));
+
+            builder.Append(" WHEN NOT MATCHED THEN INSERT ( ");
+            builder.Append(string.Join(", ", properties.Select(property => $"[{property}]")));
+            builder.Append(" ) VALUES ( ");
+            builder.Append(string.Join(", ", properties.Select(property => $"TTAB.[{property}]")));
             builder.Append(" ) OUTPUT INSERTED.ID; ");
+
+            int inserted = context.Database.ExecuteSqlCommand(builder.ToString(), model);   // error! model is unknow parameters
+
+
+
+            Console.WriteLine($" inserted:{inserted} ");
         }
 
         /// <summary>

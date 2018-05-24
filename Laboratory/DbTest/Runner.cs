@@ -35,14 +35,15 @@ namespace Laboratory.DbTest
         {
             using (var db = new SQLContext())
             {
-                Console.WriteLine(GetColumnName(typeof(Album), nameof(Album.GenreId), db));
+
+                EFExtend.Instance.Merge<Album>(db, db.Albums.First());
+
+                //Console.WriteLine(GetColumnName(typeof(Album), nameof(Album.GenreId), db));
             }
 
             //this.SQLiteTest();
             return;
-            EFExtend.Instance.Merge<Artist>();
 
-            return;
             EFExtend.Instance.Trans((command, trans) =>
             {
                 command.CommandText = "SELECT TOP 100 [Id], [UserGuid], [RealName] FROM [SystemUsers]";
