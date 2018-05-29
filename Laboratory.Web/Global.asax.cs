@@ -54,11 +54,12 @@ namespace Laboratory.Web
                         Response.Redirect("~/NotFound.html");
                         return;
 #endif
+                        var routeData = new RouteData();
+                        routeData.Values["controller"] = "Error";
+                        routeData.Values["action"] = "NotFound";
+                        routeData.Values["error"] = httpException;
 
-                        var requestContext = ((MvcHandler)HttpContext.Current.CurrentHandler).RequestContext;
-                        requestContext.RouteData.Values["controller"] = "Error";
-                        requestContext.RouteData.Values["action"] = "NotFound";
-                        requestContext.RouteData.Values["error"] = httpException;
+                        var requestContext = new RequestContext(new HttpContextWrapper(Context), routeData);
 #if DEBUG
                         var controllerFactory = ControllerBuilder.Current.GetControllerFactory();
                         var errorController = controllerFactory.CreateController(requestContext, "Error");

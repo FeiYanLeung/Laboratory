@@ -51,6 +51,8 @@ namespace Laboratory.LinqTest
 
         public void Run()
         {
+            new LinqExpression();
+            return;
             var uid = Guid.NewGuid();
             var uid2 = Guid.NewGuid();
 

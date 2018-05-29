@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -127,9 +128,113 @@ namespace Laboratory.BuiltInFuncTest
             return;
         }
 
+        public int NumMagicSquaresInside(int[][] grid)
+        {
+            int min = -1, max = -1;
+
+            for (int i = 0; i < grid.Length; i++)
+            {
+                for (int j = 0; j < grid[i].Length; j++)
+                {
+                    if (min == -1 || min > grid[i][j]) min = grid[i][j];
+                    if (max == -1 || max < grid[i][j]) max = grid[i][j];
+                }
+            }
+
+            // 幻和数
+            var x = (min + max) * (grid.Length / 2m);
+
+            // 中间位
+            var xc = x / grid.Length;
+            var tresult = new List<int[]>();
+
+            for (int i = 0; i < grid.Length; i++)
+            {
+                var rv = 0;
+                var gv = new List<int>();
+                for (int j = 0; j < grid[i].Length; j++)
+                {
+                    if (rv + grid[i][j] > x) break;
+                    rv += grid[i][j];
+                    gv.Add(grid[i][j]);
+                }
+
+                if (rv == x) tresult.Add(gv.ToArray());
+            }
+
+            var stack = new Stack<int[]>();
+            foreach (var item in tresult)
+            {
+                if (stack.Count == 0) stack.Push(item);
+
+                var sv = stack.Pop();
+                if (item.Length != sv.Length)
+                {
+
+                }
+            }
+
+            return -1;
+        }
+
+
+        public bool CanVisitAllRooms(IList<IList<int>> rooms)
+        {
+            bool can_visit_all_rooms = true;
+            var stack = new Stack<int>();
+            for (int i = 0; i < rooms.Count; i++)
+            {
+                var room = rooms[i];
+
+                // 如果要跨二维数组，则取消该行注释
+                //stack.Clear();
+
+                for (int j = 0; j < room.Count; j++)
+                {
+                    if (room[j] > 1 && stack.Count == 0)
+                    {
+                        can_visit_all_rooms = false;
+                        break;
+                    }
+
+                    var prev_room = 0;
+                    if (stack.Count > 0) prev_room = stack.Pop();
+
+                    if (prev_room != 0 && room[j] - prev_room > 1)
+                    {
+                        can_visit_all_rooms = false;
+                        break;
+                    }
+                    stack.Push(room[j]);
+                }
+
+                if (!can_visit_all_rooms) break;
+            }
+            return can_visit_all_rooms;
+        }
 
         public void Run()
         {
+            var num_magic_squares_inside = this.NumMagicSquaresInside(new int[][]{
+                new int[]{ 4,3,8,4},
+                new int[]{ 9,5,1,9},
+                new int[]{ 2,7,6,2},
+            });
+
+            Console.WriteLine(num_magic_squares_inside);
+
+            return;
+
+            var can_visit_all_rooms = this.CanVisitAllRooms(new List<IList<int>>
+            {
+                new List<int>(){ 1, 3 },
+                new List<int>(){ 3, 0, 1 },
+                new List<int>(){ 2 },
+                new List<int>(){ 0 }
+            });
+
+            Console.WriteLine(can_visit_all_rooms);
+            return;
             var bnum = intToByte(10);
             Console.WriteLine(string.Join("", bnum));
 
