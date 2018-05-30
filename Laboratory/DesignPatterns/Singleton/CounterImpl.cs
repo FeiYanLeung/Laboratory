@@ -1,8 +1,10 @@
 ﻿namespace Laboratory.DesignPatterns.Singleton
 {
-    public class CounterImpl
+    public sealed class CounterImpl
     {
         private static readonly object locker = new object();
+
+        private CounterImpl() { }
 
         private static Counter counter = null;
         public static Counter Instance
