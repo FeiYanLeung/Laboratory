@@ -111,7 +111,7 @@ namespace Laboratory.Core.Domain
         /// IIS版本
         /// </summary>
         public string IISVersion { get; set; }
-        
+
         /// <summary>
         /// 是否显示异常界面
         /// </summary>

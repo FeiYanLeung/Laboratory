@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Xml;
 using System.Xml.Serialization;
 namespace Laboratory.XmlConfigTest
@@ -41,6 +42,31 @@ namespace Laboratory.XmlConfigTest
             this.Name = _name;
             this.IconPath = _icon_path;
             this.Extensions = _extensions;
+        }
+
+
+        [OnSerializing]
+        void OnSerializing(StreamingContext context)
+        {
+            Console.WriteLine("OnSerializing");
+        }
+
+        [OnSerialized]
+        void OnSerialized(StreamingContext context)
+        {
+            Console.WriteLine("OnSerialized");
+        }
+
+        [OnDeserializing]
+        void OnDeserializing(StreamingContext context)
+        {
+            Console.WriteLine("OnDeserializing");
+        }
+
+        [OnDeserialized]
+        void OnDeserialized(StreamingContext context)
+        {
+            Console.WriteLine("OnDeserialized");
         }
     }
 }

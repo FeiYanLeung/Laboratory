@@ -1,6 +1,9 @@
 ﻿
+using Laboratory.DesignPatterns.Observer;
+using Laboratory.DesignPatterns.Prototype;
 using Laboratory.DesignPatterns.Strategy;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 
 namespace Laboratory.DesignPatterns
@@ -18,13 +21,53 @@ namespace Laboratory.DesignPatterns
         public void Run()
         {
             Console.WriteLine("see: https://github.com/FYLeung/DesignPatterns-full");
-            this.abstract_factory();
+            this.publishser();
+            //this.prototype();
+            //this.abstract_factory();
             //this.factory_method();
             //this.simple_factory();
             //this.strategy();
             //this.proxy();
             //this.singleton();
             //this.multition();
+        }
+
+        /// <summary>
+        /// 发布-订阅
+        /// </summary>
+        void publishser()
+        {
+            var kettle = new Kettle();
+            kettle.TurnOn();
+
+
+            return;
+            var publishser = new Publishser();
+            var subscriber = new Subscriber();
+            publishser.NumberChanged += subscriber.OnNumberChanged;
+            publishser.DoSomething();
+        }
+
+        /// <summary>
+        /// 原型模式
+        /// </summary>
+        void prototype()
+        {
+            var mainGraphic = new Graphic("主界面");
+            var graphics = new List<Graphic>() { mainGraphic };
+
+            for (int i = 0; i < 5; i++)
+            {
+                var subGraphic = mainGraphic.Clone();
+                subGraphic.Name = $"界面{i}";
+                graphics.Add(subGraphic);
+            }
+
+            foreach (var graphic in graphics)
+            {
+                graphic.Draw();
+            }
+
         }
 
         /// <summary>
@@ -104,6 +147,9 @@ namespace Laboratory.DesignPatterns
 
         /// <summary>
         /// 工厂方法
+        /// <![CDATA[
+        /// 缺点：每一个产品都需要对应一个工厂，即使两者相似。
+        /// ]]>
         /// </summary>
         void factory_method()
         {
@@ -119,6 +165,10 @@ namespace Laboratory.DesignPatterns
 
         /// <summary>
         /// 抽象工厂
+        /// <![CDATA[
+        /// 缺点：由于每一个产品都由实现抽象工厂方法的子类实现，所以当产品改变时，需要改变所有的实现类。
+        /// 故基本无法添加新品种的产品，要避免此问题，可以使用工厂方法(Factory Method)。 
+        /// ]]>
         /// </summary>
         void abstract_factory()
         {
