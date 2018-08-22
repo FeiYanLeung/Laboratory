@@ -86,7 +86,7 @@ namespace Laboratory.Web.Attributes
             {
                 case EnumOutputFormat.Redirect:
                     {
-                        var ex = new ErrorMessage(filterContext.Exception);
+                        var ex = new CustomExceptionEntity(filterContext.Exception);
                         var request = filterContext.HttpContext.Request;
                         ex.IISVersion = request.ServerVariables["SERVER_SOFTWARE"];
                         ex.UserAgent = request.UserAgent;
@@ -96,7 +96,7 @@ namespace Laboratory.Web.Attributes
                         filterContext.Result = new ViewResult()
                         {
                             ViewName = "~/Views/Error/Index.cshtml",
-                            ViewData = new ViewDataDictionary<ErrorMessage>(ex)
+                            ViewData = new ViewDataDictionary<CustomExceptionEntity>(ex)
                         };
                     }
                     break;

@@ -1,51 +1,9 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="renderer" content="webkit">
-    <title>404</title>
-    <style>
-        html,
-        body {
-            height: 100%;
-            width: 100%;
-            overflow: auto;
-            background-color: white;
-            padding: 0;
-            margin: 0;
-        }
+﻿@{
+    ViewBag.Title = "页面不存在或者被删除！";
+    Layout = "~/Views/Shared/_LayoutError.cshtml";
+}
 
-        .center {
-            width: 640px;
-            padding: 0px;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: 10px;
-        }
+<img src="~/Content/res/404.png" title="" />
+<p><span>Ohh....</span>这里的页面似乎被谁偷偷移走啦</p>
+<a href="javascript:history.go(-1);">返回上一页</a>
 
-        .center_link {
-            text-align: center;
-            width: 100%;
-        }
-
-        .center a {
-            display: inline-block;
-            text-decoration: none;
-            padding: 0 10px;
-        }
-
-        .hidden {
-            display: none;
-        }
-    </style>
-</head>
-<body>
-    <div class="center">
-        <img id="img_error" src="/Content/res/404.png" height="218" width="640">
-        <div class="center_link">
-            <a href="/">返回首页</a>
-        </div>
-    </div>
-</body>
-</html>

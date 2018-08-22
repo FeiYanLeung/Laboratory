@@ -4,19 +4,31 @@ using System.Web.Mvc;
 namespace Laboratory.Web.Controllers
 {
     /// <summary>
-    /// 自定义错误500
+    /// 自定义错误页
     /// </summary>
     public class ErrorController : Controller
     {
         /// <summary>
-        /// 500
+        /// 500...
         /// </summary>
         /// <param name="ex"></param>
         /// <returns></returns>
-        [ValidateInput(false)]
-        public ActionResult Index(ErrorMessage ex)
+        public ActionResult Index(CustomExceptionEntity ex)
         {
-            ViewData = new ViewDataDictionary<ErrorMessage>(ex);
+            Response.StatusCode = 500;
+            ViewData = new ViewDataDictionary<CustomExceptionEntity>(ex);
+
+            return View();
+        }
+
+        /// <summary>
+        /// 404
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult NotFound(string msg)
+        {
+            Response.StatusCode = 404;
+            ViewBag.Msg = HttpUtility.UrlDecode(HttpUtility.HtmlEncode(msg ?? ""));
             return View();
         }
     }

@@ -6,10 +6,10 @@ namespace Laboratory.Core.Domain
     /// 系统错误信息
     /// </summary>
     [Serializable]
-    public class ErrorMessage
+    public class CustomExceptionEntity
     {
-        public ErrorMessage() { }
-        public ErrorMessage(Exception ex)
+        public CustomExceptionEntity() { }
+        public CustomExceptionEntity(Exception ex)
         {
             MsgType = ex.GetType().Name;
             Message = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
