@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -20,14 +21,43 @@ namespace Laboratory.BuiltInFuncTest
         }
 
         [Serializable]
-        public class TempItem
+        public class TempItem : INotifyPropertyChanged
         {
+            public event PropertyChangedEventHandler PropertyChanged;
+
             public TempItem() { }
             public TempItem(int _id)
             {
                 this.id = _id;
             }
-            public int id { get; set; }
+
+            private int _id;
+
+            public int id
+            {
+                get
+                {
+                    return this._id;
+                }
+                set
+                {
+                    if (value != this._id)
+                    {
+                        this._id = value;
+                        notifyPropertyChanged();
+                    }
+                }
+            }
+
+            private void notifyPropertyChanged([CallerMemberName]string propertyName = "")
+            {
+                PropertyChangedEventHandler handler = PropertyChanged;
+
+                if (handler != null)
+                {
+                    handler(this, new PropertyChangedEventArgs(propertyName));
+                }
+            }
         }
 
         [Serializable]
@@ -67,11 +97,17 @@ namespace Laboratory.BuiltInFuncTest
             }
         }
 
-        public bool IsValid(object value, int count)
+        /// <summary>
+        /// 对象长度验证
+        /// </summary>
+        /// <param name="value">要验证的对象</param>
+        /// <param name="length">对象的长度</param>
+        /// <returns></returns>
+        private bool validLength(object value, int length)
         {
             if (value is System.String)
             {
-                return value.ToString().Length >= count;
+                return value.ToString().Length >= length;
             }
             else if (value is System.Collections.IEnumerable)
             {
@@ -81,12 +117,21 @@ namespace Laboratory.BuiltInFuncTest
 
                 while (valuerator.MoveNext())
                 {
-                    if (++i > count) break;
+                    if (++i > length) break;
                 }
 
-                return i >= count;
+                return i >= length;
             }
             return false;
+        }
+
+        /// <summary>
+        /// 验证对象长度
+        /// </summary>
+        private void validLength()
+        {
+            Console.WriteLine($"validLength(List<>):{this.validLength(new List<int>() { 1, 2, 3 }, 5)}");
+            Console.WriteLine($"validLength(string):{this.validLength("test", 5)}");
         }
 
         /// <summary>
@@ -128,6 +173,11 @@ namespace Laboratory.BuiltInFuncTest
             return;
         }
 
+        /// <summary>
+        /// 幻方数
+        /// </summary>
+        /// <param name="grid"></param>
+        /// <returns></returns>
         public int NumMagicSquaresInside(int[][] grid)
         {
             int min = -1, max = -1;
@@ -177,90 +227,130 @@ namespace Laboratory.BuiltInFuncTest
             return -1;
         }
 
-
-        public bool CanVisitAllRooms(IList<IList<int>> rooms)
+        public class BaseClass
         {
-            bool can_visit_all_rooms = true;
-            var stack = new Stack<int>();
-            for (int i = 0; i < rooms.Count; i++)
+            static BaseClass()
             {
-                var room = rooms[i];
-
-                // 如果要跨二维数组，则取消该行注释
-                //stack.Clear();
-
-                for (int j = 0; j < room.Count; j++)
-                {
-                    if (room[j] > 1 && stack.Count == 0)
-                    {
-                        can_visit_all_rooms = false;
-                        break;
-                    }
-
-                    var prev_room = 0;
-                    if (stack.Count > 0) prev_room = stack.Pop();
-
-                    if (prev_room != 0 && room[j] - prev_room > 1)
-                    {
-                        can_visit_all_rooms = false;
-                        break;
-                    }
-                    stack.Push(room[j]);
-                }
-
-                if (!can_visit_all_rooms) break;
+                Console.WriteLine("base.static");
             }
-            return can_visit_all_rooms;
+
+            public BaseClass()
+            {
+                Console.WriteLine("base.instance");
+            }
+
+            ~BaseClass()
+            {
+                Console.WriteLine("base.destroy");
+            }
         }
 
+        public class SubClass : BaseClass
+        {
+            static SubClass()
+            {
+                Console.WriteLine("sub.static");
+            }
+
+            public SubClass()
+            {
+                Console.WriteLine("sub.instance");
+            }
+
+            ~SubClass()
+            {
+                Console.WriteLine("sub.destroy");
+            }
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public void Run()
         {
+            #region INotifyPropertyChanged
+
+            var t_item = new TempItem();
+
+            t_item.PropertyChanged += (object sender, PropertyChangedEventArgs e) =>
+            {
+                Console.WriteLine(sender);
+                Console.WriteLine(e.PropertyName);
+            };
+
+            t_item.id = 1;
+
+            #endregion
+
+            #region 继承、析构执行结果
+
+            var sub = new SubClass();   // 输出结果sub.static\base.static\base.instance\sub.instance
+
+            #endregion
+
+            #region 幻方
+
             var num_magic_squares_inside = this.NumMagicSquaresInside(new int[][]{
                 new int[]{ 4,3,8,4},
                 new int[]{ 9,5,1,9},
                 new int[]{ 2,7,6,2},
             });
-
             Console.WriteLine(num_magic_squares_inside);
 
-            return;
+            #endregion
 
-            var can_visit_all_rooms = this.CanVisitAllRooms(new List<IList<int>>
-            {
-                new List<int>(){ 1, 3 },
-                new List<int>(){ 3, 0, 1 },
-                new List<int>(){ 2 },
-                new List<int>(){ 0 }
-            });
+            #region 进制转换
 
-            Console.WriteLine(can_visit_all_rooms);
-            return;
             var bnum = intToByte(10);
             Console.WriteLine(string.Join("", bnum));
-
             Console.WriteLine(byteToInt(bnum));
 
-            return;
+            #endregion
+
+            this.generics();
+            this.validLength();
             this.bitOperator();
+            this.objCopy();
+            this.formatting();
+            this.divisionDts();
+            this.divisionDts2();
+            this.charset();
+            this.valueScope();
+            this.consoleOut();
+            this.dateDiff();
+            this.doubleDimensionalArray();
+            this.replacePath();
+            this.compareVersion();
+            this.eachDateTime();
+            this.sortedDictionary();
+            this.randCode();
+            this.md5("escape", Encoding.Default);
+            this.other();
+            this.xor();
+            this.unsafeFib();
+        }
 
-            var v1 = new List<int>() { 1 };
-            var v2 = "1";
+        /// <summary>
+        /// 泛型
+        /// </summary>
+        private void generics()
+        {
+            var integers = new List<int>(5) { 1, 2, 3, 4, 5 };
+            Converter<int, double> converter = (x) => { return Math.Sqrt(x); };
 
-            Console.WriteLine(IsValid(v1, 2));
-            Console.WriteLine(IsValid(v2, 2));
+            var doubles = integers.ConvertAll<double>(converter);
+            foreach (var d in doubles)
+            {
+                Console.WriteLine(d);
+            }
+        }
 
-
-            return;
-
-
-            DateTime? dtNow = DateTime.Now;
-
-            Console.WriteLine(dtNow?.ToUniversalTime());
-
-            Console.WriteLine(DateTime.ParseExact("20180412000001", "yyyyMMddHHmmss", CultureInfo.CurrentCulture));
-            return;
-
-            return;
+        /// <summary>
+        /// 对象拷贝
+        /// </summary>
+        private void objCopy()
+        {
             var models = new List<Temp>();
             Temp tmp = new Temp()
             {
@@ -281,11 +371,13 @@ namespace Laboratory.BuiltInFuncTest
             {
                 Console.WriteLine($"{item.id} {item.name} {item.item.id}");
             }
+        }
 
-
-            return;
-
-
+        /// <summary>
+        /// 格式化
+        /// </summary>
+        private void formatting()
+        {
             var newId = Guid.NewGuid();
 
             Console.WriteLine(newId.ToString("n"));    //带有连接符"-"的32位数字
@@ -296,23 +388,10 @@ namespace Laboratory.BuiltInFuncTest
 
             Console.WriteLine(DateTime.Now.AddDays(-1).ToShortDateString());
             Console.WriteLine(DateTime.Now.Date);
-            return;
-            this.divisionDts();
-            this.divisionDts2();
-            this.charset();
-            this.valueScope();
-            this.consoleOut();
-            this.dateDiff();
-            this.doubleDimensionalArray();
-            this.replacePath();
-            this.compareVersion();
-            this.eachDateTime();
-            this.sortedDictionary();
-            this.randCode();
-            this.md5("escape", Encoding.Default);
-            this.other();
-            this.xor();
-            this.unsafeFib();
+
+            DateTime? dtNow = DateTime.Now;
+            Console.WriteLine(dtNow?.ToUniversalTime());
+            Console.WriteLine(DateTime.ParseExact("20180412000001", "yyyyMMddHHmmss", CultureInfo.CurrentCulture));
         }
 
         /// <summary>
@@ -320,7 +399,7 @@ namespace Laboratory.BuiltInFuncTest
         /// </summary>
         /// <param name="number">10进制数字</param>
         /// <returns></returns>
-        public byte[] intToByte(int number)
+        private byte[] intToByte(int number)
         {
             var stack = new Stack<byte>();
             do
@@ -337,7 +416,7 @@ namespace Laboratory.BuiltInFuncTest
         /// </summary>
         /// <param name="number"></param>
         /// <returns></returns>
-        public double byteToInt(byte[] bytes_digit)
+        private double byteToInt(byte[] bytes_digit)
         {
             Stack<byte> stack = new Stack<byte>(bytes_digit.Length);
             foreach (byte digit in bytes_digit)
@@ -451,7 +530,6 @@ namespace Laboratory.BuiltInFuncTest
             }
             #endregion
         }
-
 
         /// <summary>
         /// 分割时间/需要是同一日期

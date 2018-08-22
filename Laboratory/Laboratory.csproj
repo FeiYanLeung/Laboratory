@@ -173,6 +173,7 @@
     <Compile Include="Castle\Models\GreenTea.cs" />
     <Compile Include="Castle\Models\RedTea.cs" />
     <Compile Include="Castle\Runner.cs" />
+    <Compile Include="ContravariantAndCovariant\IContravariant.cs" />
     <Compile Include="DesignPatterns\AbstractFactory\AbstractFactory.cs" />
     <Compile Include="DesignPatterns\AbstractFactory\Cookie.cs" />
     <Compile Include="DesignPatterns\AbstractFactory\MainBranchCookie.cs" />
@@ -280,6 +281,8 @@
     <Compile Include="Helpers\ReflectionHelper.cs" />
     <Compile Include="ReflectTest\Runner.cs" />
     <Compile Include="RegexTest\Runner.cs" />
+    <Compile Include="RemotingTest\DomainClass.cs" />
+    <Compile Include="RemotingTest\Runner.cs" />
     <Compile Include="SDKTest\Runner.cs" />
     <Compile Include="SinaShortUrlTest\Runner.cs" />
     <Compile Include="SinaShortUrlTest\UrlShortModel.cs" />

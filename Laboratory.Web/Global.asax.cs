@@ -1,5 +1,5 @@
 ﻿// 标记是否是发布环境
-#define ONLINE
+#define OFFLINE
 
 using Laboratory.Web.Dto;
 using System;

@@ -7,13 +7,12 @@ namespace Laboratory.Web.Attributes
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = true)]
     public class LocalizedDisplayNameAttribute : DisplayNameAttribute
     {
+        private readonly string resourceId;
         public LocalizedDisplayNameAttribute(string resourceId)
-            : base(GetMessageFromResource(resourceId))
-        { }
-
-        private static string GetMessageFromResource(string resourceId)
         {
-            return Resource.ResourceManager.GetString(resourceId, Resource.Culture);
+            this.resourceId = resourceId;
         }
+
+        public override string DisplayName => Resource.ResourceManager.GetString(resourceId, Resource.Culture);
     }
 }
