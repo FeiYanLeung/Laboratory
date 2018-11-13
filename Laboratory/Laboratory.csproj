@@ -76,6 +76,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="EPPlus, Version=4.5.2.1, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.5.2.1\lib\net40\EPPlus.dll</HintPath>
+    </Reference>
     <Reference Include="KCached">
       <HintPath>..\Plugins\Beetle.Redis.0.6.6.5\KCached.dll</HintPath>
     </Reference>
@@ -94,6 +97,7 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="ServiceStack.Common, Version=4.5.10.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ServiceStack.Common.4.5.10\lib\net45\ServiceStack.Common.dll</HintPath>
     </Reference>
@@ -262,6 +266,8 @@
     <Compile Include="NetworkTest\Network.cs" />
     <Compile Include="NetworkTest\Runner.cs" />
     <Compile Include="ObjectTest\Runner.cs" />
+    <Compile Include="OfficeTest\EPPBuilder.cs" />
+    <Compile Include="OfficeTest\Runner.cs" />
     <Compile Include="OverrideTest\Person.cs" />
     <Compile Include="OverrideTest\Runner.cs" />
     <Compile Include="OverrideTest\Student.cs" />
