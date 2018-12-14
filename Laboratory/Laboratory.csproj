@@ -266,8 +266,6 @@
     <Compile Include="NetworkTest\Network.cs" />
     <Compile Include="NetworkTest\Runner.cs" />
     <Compile Include="ObjectTest\Runner.cs" />
-    <Compile Include="OfficeTest\EPPBuilder.cs" />
-    <Compile Include="OfficeTest\Runner.cs" />
     <Compile Include="OverrideTest\Person.cs" />
     <Compile Include="OverrideTest\Runner.cs" />
     <Compile Include="OverrideTest\Student.cs" />

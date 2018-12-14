@@ -64,7 +64,7 @@ namespace Laboratory.Web
                         var controllerFactory = ControllerBuilder.Current.GetControllerFactory();
                         var errorController = controllerFactory.CreateController(requestContext, "Error");
 #else
-                        var errorController  = new ErrorController();
+                        var errorController  = new Controllers.ErrorController();
 #endif
 
                         // 调用并传递routeData到目标Controller
