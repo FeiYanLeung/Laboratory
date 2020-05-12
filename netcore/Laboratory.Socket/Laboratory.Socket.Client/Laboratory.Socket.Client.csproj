@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyName>Laboratory.Socket.Client</AssemblyName>
+    <RootNamespace>Laboratory.Socket.Client</RootNamespace>
+    <Platforms>AnyCPU;x64;x86</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Laboratory.Socket.Infrastructure\Laboratory.Socket.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

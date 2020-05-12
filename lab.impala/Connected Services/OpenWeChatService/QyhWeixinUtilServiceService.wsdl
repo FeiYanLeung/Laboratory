@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://qyh.webService.est.yonyou.com/" xmlns:ns1="http://cxf.apache.org/bindings/xformat" name="QyhWeixinUtilServiceService" targetNamespace="http://qyh.webService.est.yonyou.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://qyh.webService.est.yonyou.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="qyhMessageVO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="msgtype" type="xs:string" />
+          <xs:element minOccurs="0" name="newsVO" type="tns:newsMessageVO" />
+          <xs:element minOccurs="0" name="textVO" type="tns:textMessageVO" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="newsMessageVO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="agentid" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="articles" nillable="true" type="tns:articleVO" />
+          <xs:element minOccurs="0" name="msgtype" type="xs:string" />
+          <xs:element minOccurs="0" name="toparty" type="xs:string" />
+          <xs:element minOccurs="0" name="totag" type="xs:string" />
+          <xs:element minOccurs="0" name="touser" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="articleVO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="description" type="xs:string" />
+          <xs:element minOccurs="0" name="picurl" type="xs:string" />
+          <xs:element minOccurs="0" name="title" type="xs:string" />
+          <xs:element minOccurs="0" name="url" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="textMessageVO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="agentid" type="xs:string" />
+          <xs:element minOccurs="0" name="content" type="xs:string" />
+          <xs:element minOccurs="0" name="msgtype" type="xs:string" />
+          <xs:element minOccurs="0" name="safe" type="xs:string" />
+          <xs:element minOccurs="0" name="toparty" type="xs:string" />
+          <xs:element minOccurs="0" name="totag" type="xs:string" />
+          <xs:element minOccurs="0" name="touser" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="getLocalQyhUserByUserIdOrCode" type="tns:getLocalQyhUserByUserIdOrCode" />
+      <xs:complexType name="getLocalQyhUserByUserIdOrCode">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="userId" type="xs:string" />
+          <xs:element minOccurs="0" name="code" type="xs:string" />
+          <xs:element minOccurs="0" name="callSystem" type="xs:string" />
+          <xs:element minOccurs="0" name="nonceStr" type="xs:string" />
+          <xs:element minOccurs="0" name="timestamp" type="xs:string" />
+          <xs:element minOccurs="0" name="signature" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="getLocalQyhUserByUserIdOrCodeResponse" type="tns:getLocalQyhUserByUserIdOrCodeResponse" />
+      <xs:complexType name="getLocalQyhUserByUserIdOrCodeResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="sendMessageToAgent" type="tns:sendMessageToAgent" />
+      <xs:complexType name="sendMessageToAgent">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="qyhMessageVO" type="tns:qyhMessageVO" />
+          <xs:element minOccurs="0" name="callSystem" type="xs:string" />
+          <xs:element minOccurs="0" name="nonceStr" type="xs:string" />
+          <xs:element minOccurs="0" name="timestamp" type="xs:string" />
+          <xs:element minOccurs="0" name="signature" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="sendMessageToAgentResponse" type="tns:sendMessageToAgentResponse" />
+      <xs:complexType name="sendMessageToAgentResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="getQyhUserByUserIdOrCode" type="tns:getQyhUserByUserIdOrCode" />
+      <xs:complexType name="getQyhUserByUserIdOrCode">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="userId" type="xs:string" />
+          <xs:element minOccurs="0" name="code" type="xs:string" />
+          <xs:element minOccurs="0" name="callSystem" type="xs:string" />
+          <xs:element minOccurs="0" name="nonceStr" type="xs:string" />
+          <xs:element minOccurs="0" name="timestamp" type="xs:string" />
+          <xs:element minOccurs="0" name="signature" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="getQyhUserByUserIdOrCodeResponse" type="tns:getQyhUserByUserIdOrCodeResponse" />
+      <xs:complexType name="getQyhUserByUserIdOrCodeResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="getAllQyhDept" type="tns:getAllQyhDept" />
+      <xs:complexType name="getAllQyhDept">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="callSystem" type="xs:string" />
+          <xs:element minOccurs="0" name="nonceStr" type="xs:string" />
+          <xs:element minOccurs="0" name="timestamp" type="xs:string" />
+          <xs:element minOccurs="0" name="signature" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="getAllQyhDeptResponse" type="tns:getAllQyhDeptResponse" />
+      <xs:complexType name="getAllQyhDeptResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="getQyhUserListByDate" type="tns:getQyhUserListByDate" />
+      <xs:complexType name="getQyhUserListByDate">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="startDate" type="xs:string" />
+          <xs:element minOccurs="0" name="endDate" type="xs:string" />
+          <xs:element minOccurs="0" name="callSystem" type="xs:string" />
+          <xs:element minOccurs="0" name="nonceStr" type="xs:string" />
+          <xs:element minOccurs="0" name="timestamp" type="xs:string" />
+          <xs:element minOccurs="0" name="signature" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="getQyhUserListByDateResponse" type="tns:getQyhUserListByDateResponse" />
+      <xs:complexType name="getQyhUserListByDateResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="getAllQyhAgent" type="tns:getAllQyhAgent" />
+      <xs:complexType name="getAllQyhAgent">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="callSystem" type="xs:string" />
+          <xs:element minOccurs="0" name="nonceStr" type="xs:string" />
+          <xs:element minOccurs="0" name="timestamp" type="xs:string" />
+          <xs:element minOccurs="0" name="signature" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="getAllQyhAgentResponse" type="tns:getAllQyhAgentResponse" />
+      <xs:complexType name="getAllQyhAgentResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="getAccessToken" type="tns:getAccessToken" />
+      <xs:complexType name="getAccessToken">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="callSystem" type="xs:string" />
+          <xs:element minOccurs="0" name="nonceStr" type="xs:string" />
+          <xs:element minOccurs="0" name="timestamp" type="xs:string" />
+          <xs:element minOccurs="0" name="signature" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="getAccessTokenResponse" type="tns:getAccessTokenResponse" />
+      <xs:complexType name="getAccessTokenResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="getQyhUserId" type="tns:getQyhUserId" />
+      <xs:complexType name="getQyhUserId">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="userId" type="xs:string" />
+          <xs:element minOccurs="0" name="code" type="xs:string" />
+          <xs:element minOccurs="0" name="callSystem" type="xs:string" />
+          <xs:element minOccurs="0" name="nonceStr" type="xs:string" />
+          <xs:element minOccurs="0" name="timestamp" type="xs:string" />
+          <xs:element minOccurs="0" name="signature" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="getQyhUserIdResponse" type="tns:getQyhUserIdResponse" />
+      <xs:complexType name="getQyhUserIdResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="getWeixinPageInit" type="tns:getWeixinPageInit" />
+      <xs:complexType name="getWeixinPageInit">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="callSystem" type="xs:string" />
+          <xs:element minOccurs="0" name="pageUrl" type="xs:string" />
+          <xs:element minOccurs="0" name="nonceStr" type="xs:string" />
+          <xs:element minOccurs="0" name="timestamp" type="xs:string" />
+          <xs:element minOccurs="0" name="signature" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="getWeixinPageInitResponse" type="tns:getWeixinPageInitResponse" />
+      <xs:complexType name="getWeixinPageInitResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="getJsapiTicket" type="tns:getJsapiTicket" />
+      <xs:complexType name="getJsapiTicket">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="callSystem" type="xs:string" />
+          <xs:element minOccurs="0" name="nonceStr" type="xs:string" />
+          <xs:element minOccurs="0" name="timestamp" type="xs:string" />
+          <xs:element minOccurs="0" name="signature" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="getJsapiTicketResponse" type="tns:getJsapiTicketResponse" />
+      <xs:complexType name="getJsapiTicketResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="getUserIdByMobile" type="tns:getUserIdByMobile" />
+      <xs:complexType name="getUserIdByMobile">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="callSystem" type="xs:string" />
+          <xs:element minOccurs="0" name="nonceStr" type="xs:string" />
+          <xs:element minOccurs="0" name="timestamp" type="xs:string" />
+          <xs:element minOccurs="0" name="signature" type="xs:string" />
+          <xs:element minOccurs="0" name="mobile" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="getUserIdByMobileResponse" type="tns:getUserIdByMobileResponse" />
+      <xs:complexType name="getUserIdByMobileResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getQyhUserId">
+    <wsdl:part name="parameters" element="tns:getQyhUserId" />
+  </wsdl:message>
+  <wsdl:message name="getAllQyhAgentResponse">
+    <wsdl:part name="parameters" element="tns:getAllQyhAgentResponse" />
+  </wsdl:message>
+  <wsdl:message name="getJsapiTicketResponse">
+    <wsdl:part name="parameters" element="tns:getJsapiTicketResponse" />
+  </wsdl:message>
+  <wsdl:message name="getAllQyhAgent">
+    <wsdl:part name="parameters" element="tns:getAllQyhAgent" />
+  </wsdl:message>
+  <wsdl:message name="getUserIdByMobileResponse">
+    <wsdl:part name="parameters" element="tns:getUserIdByMobileResponse" />
+  </wsdl:message>
+  <wsdl:message name="sendMessageToAgent">
+    <wsdl:part name="parameters" element="tns:sendMessageToAgent" />
+  </wsdl:message>
+  <wsdl:message name="getQyhUserByUserIdOrCodeResponse">
+    <wsdl:part name="parameters" element="tns:getQyhUserByUserIdOrCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="getQyhUserListByDateResponse">
+    <wsdl:part name="parameters" element="tns:getQyhUserListByDateResponse" />
+  </wsdl:message>
+  <wsdl:message name="getAccessToken">
+    <wsdl:part name="parameters" element="tns:getAccessToken" />
+  </wsdl:message>
+  <wsdl:message name="getWeixinPageInit">
+    <wsdl:part name="parameters" element="tns:getWeixinPageInit" />
+  </wsdl:message>
+  <wsdl:message name="getQyhUserIdResponse">
+    <wsdl:part name="parameters" element="tns:getQyhUserIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="getLocalQyhUserByUserIdOrCodeResponse">
+    <wsdl:part name="parameters" element="tns:getLocalQyhUserByUserIdOrCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="getAccessTokenResponse">
+    <wsdl:part name="parameters" element="tns:getAccessTokenResponse" />
+  </wsdl:message>
+  <wsdl:message name="getLocalQyhUserByUserIdOrCode">
+    <wsdl:part name="parameters" element="tns:getLocalQyhUserByUserIdOrCode" />
+  </wsdl:message>
+  <wsdl:message name="getAllQyhDept">
+    <wsdl:part name="parameters" element="tns:getAllQyhDept" />
+  </wsdl:message>
+  <wsdl:message name="getUserIdByMobile">
+    <wsdl:part name="parameters" element="tns:getUserIdByMobile" />
+  </wsdl:message>
+  <wsdl:message name="getJsapiTicket">
+    <wsdl:part name="parameters" element="tns:getJsapiTicket" />
+  </wsdl:message>
+  <wsdl:message name="getWeixinPageInitResponse">
+    <wsdl:part name="parameters" element="tns:getWeixinPageInitResponse" />
+  </wsdl:message>
+  <wsdl:message name="getAllQyhDeptResponse">
+    <wsdl:part name="parameters" element="tns:getAllQyhDeptResponse" />
+  </wsdl:message>
+  <wsdl:message name="getQyhUserListByDate">
+    <wsdl:part name="parameters" element="tns:getQyhUserListByDate" />
+  </wsdl:message>
+  <wsdl:message name="getQyhUserByUserIdOrCode">
+    <wsdl:part name="parameters" element="tns:getQyhUserByUserIdOrCode" />
+  </wsdl:message>
+  <wsdl:message name="sendMessageToAgentResponse">
+    <wsdl:part name="parameters" element="tns:sendMessageToAgentResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IQyhWeixinUtilService">
+    <wsdl:operation name="getLocalQyhUserByUserIdOrCode">
+      <wsdl:input name="getLocalQyhUserByUserIdOrCode" message="tns:getLocalQyhUserByUserIdOrCode" />
+      <wsdl:output name="getLocalQyhUserByUserIdOrCodeResponse" message="tns:getLocalQyhUserByUserIdOrCodeResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="sendMessageToAgent">
+      <wsdl:input name="sendMessageToAgent" message="tns:sendMessageToAgent" />
+      <wsdl:output name="sendMessageToAgentResponse" message="tns:sendMessageToAgentResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getQyhUserByUserIdOrCode">
+      <wsdl:input name="getQyhUserByUserIdOrCode" message="tns:getQyhUserByUserIdOrCode" />
+      <wsdl:output name="getQyhUserByUserIdOrCodeResponse" message="tns:getQyhUserByUserIdOrCodeResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getAllQyhDept">
+      <wsdl:input name="getAllQyhDept" message="tns:getAllQyhDept" />
+      <wsdl:output name="getAllQyhDeptResponse" message="tns:getAllQyhDeptResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getQyhUserListByDate">
+      <wsdl:input name="getQyhUserListByDate" message="tns:getQyhUserListByDate" />
+      <wsdl:output name="getQyhUserListByDateResponse" message="tns:getQyhUserListByDateResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getAllQyhAgent">
+      <wsdl:input name="getAllQyhAgent" message="tns:getAllQyhAgent" />
+      <wsdl:output name="getAllQyhAgentResponse" message="tns:getAllQyhAgentResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getAccessToken">
+      <wsdl:input name="getAccessToken" message="tns:getAccessToken" />
+      <wsdl:output name="getAccessTokenResponse" message="tns:getAccessTokenResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getQyhUserId">
+      <wsdl:input name="getQyhUserId" message="tns:getQyhUserId" />
+      <wsdl:output name="getQyhUserIdResponse" message="tns:getQyhUserIdResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getWeixinPageInit">
+      <wsdl:input name="getWeixinPageInit" message="tns:getWeixinPageInit" />
+      <wsdl:output name="getWeixinPageInitResponse" message="tns:getWeixinPageInitResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getJsapiTicket">
+      <wsdl:input name="getJsapiTicket" message="tns:getJsapiTicket" />
+      <wsdl:output name="getJsapiTicketResponse" message="tns:getJsapiTicketResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getUserIdByMobile">
+      <wsdl:input name="getUserIdByMobile" message="tns:getUserIdByMobile" />
+      <wsdl:output name="getUserIdByMobileResponse" message="tns:getUserIdByMobileResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="QyhWeixinUtilServiceServiceSoapBinding" type="tns:IQyhWeixinUtilService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getLocalQyhUserByUserIdOrCode">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getLocalQyhUserByUserIdOrCode">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getLocalQyhUserByUserIdOrCodeResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getQyhUserByUserIdOrCode">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getQyhUserByUserIdOrCode">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getQyhUserByUserIdOrCodeResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendMessageToAgent">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="sendMessageToAgent">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="sendMessageToAgentResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllQyhDept">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getAllQyhDept">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getAllQyhDeptResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getQyhUserListByDate">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getQyhUserListByDate">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getQyhUserListByDateResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllQyhAgent">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getAllQyhAgent">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getAllQyhAgentResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAccessToken">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getAccessToken">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getAccessTokenResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getQyhUserId">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getQyhUserId">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getQyhUserIdResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getJsapiTicket">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getJsapiTicket">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getJsapiTicketResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getWeixinPageInit">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getWeixinPageInit">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getWeixinPageInitResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUserIdByMobile">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getUserIdByMobile">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getUserIdByMobileResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="QyhWeixinUtilServiceService">
+    <wsdl:port name="QyhWeixinUtilServicePort" binding="tns:QyhWeixinUtilServiceServiceSoapBinding">
+      <soap:address location="http://signin.gtmc.com.cn/WXESTS/services/qyhWeixinUtilService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
