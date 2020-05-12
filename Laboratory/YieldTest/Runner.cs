@@ -36,6 +36,7 @@ namespace Laboratory.YieldTest
                 }
             }
         }
+
         public void Run()
         {
             foreach (var item in Data)

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 
 // ReSharper disable once CheckNamespace
-namespace Laboratory.NetCore.Web
+namespace Laboratory.Web
 {
     public class WebSocketRequestHandlerMiddleware
     {

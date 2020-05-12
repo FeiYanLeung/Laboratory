@@ -10,6 +10,10 @@ namespace Laboratory
     {
         static void Main(string[] args)
         {
+            // var src = 0.ToArtDigit();
+            // var src_decode = "\\u24EA".DecodeUnicode();
+            //return;
+
             Console.Write("运行模式：");
 #if DEBUG
             Console.Write("DEBUG");

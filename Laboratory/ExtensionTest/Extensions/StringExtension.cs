@@ -170,5 +170,64 @@ namespace Laboratory
             }
             return ASCIIEncoding.Default.GetString(vBytes);
         }
+
+        /// <summary>
+        /// 字符串转Unicode
+        /// </summary>
+        /// <param name="srcText">源字符串</param>
+        /// <returns>Unicode编码后的字符串</returns>
+        public static string String2Unicode(this string srcText)
+        {
+            var bytes = Encoding.Unicode.GetBytes(srcText);
+            var stringBuilder = new StringBuilder();
+            for (var i = 0; i < bytes.Length; i += 2)
+            {
+                stringBuilder.AppendFormat("\\u{0:x2}{1:x2}", bytes[i + 1], bytes[i]);
+            }
+            return stringBuilder.ToString();
+        }
+
+        /// <summary>  
+        /// 字符串转为Unicode码字符串  
+        /// </summary>  
+        /// <param name="s"></param>  
+        /// <returns></returns>  
+        public static string ToUnicode(this string s)
+        {
+            char[] charbuffers = s.ToCharArray();
+            byte[] buffer;
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < charbuffers.Length; i++)
+            {
+                buffer = Encoding.Unicode.GetBytes(charbuffers[i].ToString());
+                sb.Append(string.Format("\\u{0:X2}{1:X2}", buffer[1], buffer[0]));
+            }
+            return sb.ToString();
+        }
+
+        /// <summary>  
+        /// 解码Unicode字符串
+        /// </summary>  
+        /// <param name="srcUnicode"></param>  
+        /// <returns></returns>  
+        public static string DecodeUnicode(this string srcUnicode)
+        {
+            StringBuilder dest = new StringBuilder();
+            string src = srcUnicode;
+            int len = srcUnicode.Length / 6;
+            for (int i = 0; i <= len - 1; i++)
+            {
+                string str = "";
+                str = src.Substring(0, 6).Substring(2);
+                src = src.Substring(6);
+                byte[] bytes = new byte[2];
+                bytes[1] = byte.Parse(int.Parse(str.Substring(0, 2), NumberStyles.HexNumber).ToString());
+                bytes[0] = byte.Parse(int.Parse(str.Substring(2, 2), NumberStyles.HexNumber).ToString());
+                dest.Append(Encoding.Unicode.GetString(bytes));
+            }
+            return dest.ToString();
+        }
+
+
     }
 }

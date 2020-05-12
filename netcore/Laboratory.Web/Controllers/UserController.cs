@@ -1,4 +1,4 @@
-﻿using Laboratory.NetCore.Web.Models;
+﻿using Laboratory.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;

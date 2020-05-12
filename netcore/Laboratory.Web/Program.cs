@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using NLog.Web;
 using System;
 
-namespace Laboratory.NetCore.Web
+namespace Laboratory.Web
 {
     public static class Program
     {

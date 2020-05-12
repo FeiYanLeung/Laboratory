@@ -1,4 +1,4 @@
-﻿using Laboratory.NetCore.Web.Models;
+﻿using Laboratory.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;

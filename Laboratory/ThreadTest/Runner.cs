@@ -30,8 +30,85 @@ namespace Laboratory.ThreadTest
              });
         }
 
+        #region 多线程示例
+
+        public class threadParameter
+        {
+            public string Name { get; private set; }
+            public int Age { get; private set; }
+            public threadParameter(string name, int age)
+            {
+                this.Name = name;
+                this.Age = age;
+            }
+
+            public override string ToString()
+            {
+                return $" 【CLASS.thread.parameter】 {this.Name} - {this.Age}";
+            }
+        }
+
+        public void runFunc()
+        {
+
+            try
+            {
+                Console.WriteLine("【FUNC.thread.id】: {0} {1}", DateTime.Now.ToGreenwichTimestamp(), Thread.CurrentThread.ManagedThreadId);
+                for (int n = 0; n < 10; n++)
+                {
+                    if (n >= 4) //当n等于4时，终止线程
+                    {
+                        Thread.CurrentThread.Abort(n);
+                    }
+                    Thread.Sleep(300);
+                    Console.WriteLine("【FUNC.thread.id.abort[N]】:" + n.ToString());
+                }
+            }
+            catch (ThreadAbortException ex)
+            {
+                //输出终止线程时n的值
+                if (ex.ExceptionState != null)
+                    Console.WriteLine("Thread abort when the number is: {0}!", ex.ExceptionState.ToString());
+
+                Thread.ResetAbort(); //取消终止，继续执行线程
+                Console.WriteLine("Thread ResetAbort!");
+                Console.WriteLine("Thread Close!"); //线程结束
+                Console.ReadKey();
+            }
+        }
+
+        void runParameterFunc(object parameter)
+        {
+            if (null != parameter)
+            {
+                var _threadParameter = parameter as threadParameter;
+                Console.WriteLine("【FUNC.thread.parameter】: {0} {1}", DateTime.Now.ToGreenwichTimestamp(), _threadParameter.ToString());
+                return;
+            }
+            Console.WriteLine("【FUNC.thread.NO.parameter】: {0}", DateTime.Now.ToGreenwichTimestamp());
+        }
+
+        #endregion
+
+
         public void Run()
         {
+            var _thread = new Thread(new ThreadStart(runFunc));
+
+            _thread.Start();
+            var _thread_timeout = _thread.Join(10);       // 阻塞线程，等待 _thread 执行完成
+            if (_thread_timeout) Console.WriteLine("join.timeout");
+
+            var _thread_parameter = new Thread(new ParameterizedThreadStart(runParameterFunc));
+            _thread_parameter.Start(new threadParameter("Alina", 30));
+
+
+            //Thread.Sleep(100);   // 挂起当前线程 100 ms
+            Console.WriteLine("【ENTRY.thread.id】: {0} {1}", DateTime.Now.ToGreenwichTimestamp(), Thread.CurrentThread.ManagedThreadId);
+
+            ThreadPool.QueueUserWorkItem(new WaitCallback(runParameterFunc), new threadParameter("Leung", 20));
+
+            return;
             var backgroundThread = new Thread(new ThreadStart(() =>
               {
                   for (int i = 0; i < 10; i++)

@@ -8,7 +8,7 @@ using System;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Laboratory.NetCore.Web
+namespace Laboratory.Web
 {
     public class Startup
     {

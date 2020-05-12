@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
 // ReSharper disable once CheckNamespace
-namespace Laboratory.NetCore.Web
+namespace Laboratory.Web
 {
     public class WebSocketRequestHandler
     {
@@ -17,7 +17,7 @@ namespace Laboratory.NetCore.Web
             we can set any value. We know that in this case the size of the sent
             data is very small.
             */
-            const int maxMessageSize = 1024;
+            const int maxMessageSize = 102400;
 
             //Buffer for received bits.
             var receivedDataBuffer = new ArraySegment<Byte>(new Byte[maxMessageSize]);

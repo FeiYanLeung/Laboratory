@@ -55,8 +55,7 @@ namespace Laboratory.AutoMapper
                 {
                     opts.Condition(src => src.source_items.Any());
                     opts.ResolveUsing<MemberValueResolver, ICollection<string>>(src => src.source_items);
-                })
-                ;
+                });
         }
     }
 }

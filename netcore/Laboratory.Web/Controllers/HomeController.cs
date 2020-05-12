@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace Laboratory.NetCore.Web.Controllers
+namespace Laboratory.Web.Controllers
 {
     public class HomeController : Controller
     {

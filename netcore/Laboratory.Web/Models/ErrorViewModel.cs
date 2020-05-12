@@ -1,4 +1,4 @@
-namespace Laboratory.NetCore.Web.Models
+namespace Laboratory.Web.Models
 {
     public class ErrorViewModel
     {
